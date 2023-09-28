@@ -1,0 +1,27 @@
+name: migrate-test
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: tidbcloud/wait-for-tidbcloud-branch@v0
+        id: wait-for-branch
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          public-key: ${{ secrets.TIDB_CLOUD_PUBLIC_KEY }}
+          private-key: ${{ secrets.TIDB_CLOUD_PRIVATE_KEY }}
+          timeout-seconds: 600
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: migrate-test
+        run: |
+          pip install -r requirements.txt
+          DB_DATABASE=test DB_USER=${{ steps.wait-for-branch.outputs.username }} DB_PASSWORD=${{ steps.wait-for-branch.outputs.password }} DB_HOST=${{ steps.wait-for-branch.outputs.host }} SSL_CA=/etc/ssl/certs/ca-certificates.crt ./apps/manage.py migrate
