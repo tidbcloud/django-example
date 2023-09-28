@@ -67,6 +67,6 @@ SSL_CA=
 
 Assume that you have run the Django project on a TiDB Serverless. Next, you can use the [Branching GitHub integration](https://docs.pingcap.com/tidbcloud/branch-github-integration) to connect the TiDB Serverless to this repo. Then a database branch will be created for every pull request to test the changes before merging the code to the master branch.
 
-This repo has already connected to a TiDB Serverless. Check this [pull request](https://github.com/tidbcloud/branching-django-exmaple/pull/1) to see how we check the migration changes!
+This repo has already connected to a TiDB Serverless. Check this [pull request](https://github.com/tidbcloud/branching-django-exmaple/pull/2) to see how we check the migration changes!
 
 
